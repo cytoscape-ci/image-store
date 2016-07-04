@@ -33,15 +33,6 @@ func setRoutes(r *gin.Engine) {
 		c.JSON(200, gin.H{"message": "Image submission successful."})
 	})
 
-	r.GET("/image/:network_id", func(c *gin.Context) {
-		id := c.Param("network_id")
-		if f, ok := format[id]; ok {
-			url := "/" + id + "." + f
-			c.Redirect(302, url)
-		} else {
-			c.JSON(404, gin.H{"message": "Image not found."})
-		}
-	})
 }
 
 func setImageServer(r *gin.Engine) {
@@ -52,5 +43,5 @@ func main() {
 	router := getGinRouter()
 	setRoutes(router)
 	setImageServer(router)
-	router.Run(":80")
+	router.Run("0.0.0.0:80")
 }
